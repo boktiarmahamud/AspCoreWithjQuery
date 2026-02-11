@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Number</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Number">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Number</label>
+                <input type="text" class="form-control" id="secondName" placeholder="Enter Number">
+            </div>
+            <br/>
+            <button class="btn btn-info" onclick="Addion()">ADD</button>
+            <button class="btn btn-info" onclick="Subtraction()">Subtracion</button>
+            <button class="btn btn-info" onclick="Multiplication()">Multiplicaion</button>
+            <button class="btn btn-info" onclick="Division()">Division</button>
+            <button class="btn btn-info" onclick="calculation()">calculation</button>
+
+            <br />
+
+            <h3 id="result"></h3>           
+        </div>
+	</div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type = "text/javascript">
+ //    $(document).ready(function () {
+ //        alert("jQuery is working!");
+	// });
+         function Addion() {
+              var n1 = $("#name").val();
+              var n2 = $("#secondName").val();
+
+              $.ajax({
+                  type: 'POST',                      // changed to POST to match controller
+                  url: '@Url.Action("Add", "Home")',  // explicitly include controller
+                  data: { num1: n1, num2: n2 },
+                  dataType: 'json',                  // expect JSON (controller returns a number)
+                  success: function (response) {
+                      $("#result").text("result is: " + response);
+                  },
+                  error: function (req, status, error) {
+                      $("#result").text(error);
+                  }
+              });
+          }
+
+             function Subtraction() {
+                 var n1 = $("#name").val();
+                 var n2 = $("#secondName").val();
+
+                 $.ajax({
+                     type: 'POST',                      // changed to POST to match controller
+                     url: '@Url.Action("Sub", "Home")',  // explicitly include controller
+                     data: { num1: n1, num2: n2 },
+                     dataType: 'json',                  // expect JSON (controller returns a number)
+                     success: function (response) {
+                            $("#result").text("result is: " + response);
+                     },
+                     error: function (req, status, error) {
+                         $("#result").text(error);
+                     }
+                 });
+             }
+
+                function Multiplication() {
+                    var n1 = $("#name").val();
+                    var n2 = $("#secondName").val();
+
+                    $.ajax({
+                        type: 'POST',                      // changed to POST to match controller
+                        url: '@Url.Action("Mul", "Home")',  // explicitly include controller
+                        data: { num1: n1, num2: n2 },
+                        dataType: 'json',                  // expect JSON (controller returns a number)
+                        success: function (response) {
+                               $("#result").text("result is: " + response);
+                        },
+                        error: function (req, status, error) {
+                            $("#result").text(error);
+                        }
+                    });
+                }
+
+                   function Division() {
+                       var n1 = $("#name").val();
+                       var n2 = $("#secondName").val();
+
+                       $.ajax({
+                           type: 'POST',                      // changed to POST to match controller
+                           url: '@Url.Action("Div", "Home")',  // explicitly include controller
+                           data: { num1: n1, num2: n2 },
+                           dataType: 'json',                  // expect JSON (controller returns a number)
+                           success: function (response) {
+                                  $("#result").text("result is: " + response);
+                           },
+                           error: function (req, status, error) {
+                               $("#result").text(error);
+                           }
+                       });
+                   }
+
+                 function calculation() { 
+                 var n1 = $("#name").val();
+                 var n2 = $("#secondName").val();
+
+                 $.ajax({
+                     type: 'POST',                      
+                     url: '@Url.Action("Calculate")',  
+                     data: { num1: n1, num2: n2 },
+                     dataType: 'json',                  
+                     success: function (response) {
+                         var data = "Addition reuslt is: " + response.add + "<br>" +
+                                       "Subtraction reuslt is: " + response.subtract + "<br>" +
+                                       "Multiplication reuslt is: " + response.multiply + "<br>" +
+                                        "Division rsult is : " + response.division
+
+                         $("#result").html(data);
+                     },
+                     error: function (req, status, error) {
+                         $("#result").text(error);
+                     }
+                 });
+             }
+
+
+</script>
